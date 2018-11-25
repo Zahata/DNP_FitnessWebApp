@@ -72,7 +72,7 @@ namespace VIA_Fitness.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "User");
                         }
                     }
                     else
@@ -86,6 +86,13 @@ namespace VIA_Fitness.Controllers
                 }
             }
             ViewBag.Message = message;
+            return View();
+        }
+        // GET: UserPage
+        [HttpGet]
+        [Authorize]
+        public ActionResult Index()
+        {
             return View();
         }
 
