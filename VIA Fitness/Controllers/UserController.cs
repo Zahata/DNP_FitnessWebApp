@@ -31,10 +31,12 @@ namespace VIA_Fitness.Controllers
             {
                 db.Users.Add(user);
                 db.SaveChanges();
+              
             }
             ModelState.Clear();
             ViewBag.SuccessMessage = "Registration successful";
-                return View(user);
+            
+            return View(user);
             }
 
          // GET: Login

@@ -83,8 +83,60 @@
     <div class="form-group">
         @Html.LabelFor(model => model.country, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.country, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+            @{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Select Country",
+                    Value = "Select Country",
+                    Selected = true
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Bulgaria",
+                    Value = "Bulgaria",
+
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Denmark",
+                    Value = "Denmark"
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "France",
+                    Value = "France",
+
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Germany",
+                    Value = "Germany"
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Spain",
+                    Value = "Spain",
+
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "United Kingdom",
+                    Value = "United Kingdom"
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "USA",
+                    Value = "USA",
+
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Portugal",
+                    Value = "Portugal"
+                });
+            }
+            @Html.DropDownListFor(model => model.country, listItems, new { @class = "form-control" })
         </div>
     </div>
 
@@ -92,11 +144,12 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Register" class="btn btn-default" />
-        </div>
-    </div>
-    <div>
+            <div>
         @Html.ActionLink("Already registered? Go to login page", "Login")
     </div>
+        </div>
+    </div>
+    
 </div>
 }
 
