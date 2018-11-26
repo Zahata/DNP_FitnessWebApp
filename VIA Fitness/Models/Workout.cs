@@ -16,9 +16,9 @@ namespace VIA_Fitness.Models
     {
         public int workoutID { get; set; }
         public string type { get; set; }
-        public Nullable<int> duration { get; set; }
-        public Nullable<double> caloriesBurned { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
+        public Nullable<decimal> duration { get; set; }
+        public Nullable<decimal> caloriesBurned { get; set; }
+        public System.DateTime date { get; set; }
         public string username { get; set; }
     
         public virtual User User { get; set; }

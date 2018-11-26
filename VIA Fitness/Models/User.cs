@@ -17,7 +17,7 @@ namespace VIA_Fitness.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Measurements = new HashSet<Measurement>();
+            this.Measurments = new HashSet<Measurment>();
             this.Workouts = new HashSet<Workout>();
         }
     
@@ -31,7 +31,7 @@ namespace VIA_Fitness.Models
         public string country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Measurement> Measurements { get; set; }
+        public virtual ICollection<Measurment> Measurments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Workout> Workouts { get; set; }
     }

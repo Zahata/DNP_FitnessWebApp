@@ -12,12 +12,12 @@ namespace VIA_Fitness.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Measurement
+    public partial class Measurment
     {
-        public int measurementsID { get; set; }
-        public Nullable<int> height { get; set; }
-        public Nullable<double> weight { get; set; }
-        public Nullable<double> bodyfatPercentage { get; set; }
+        public int measurmentID { get; set; }
+        public double height { get; set; }
+        public double weight { get; set; }
+        public Nullable<double> bodyfatPercantage { get; set; }
         public string username { get; set; }
     
         public virtual User User { get; set; }

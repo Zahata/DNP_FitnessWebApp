@@ -27,7 +27,7 @@ namespace VIA_Fitness.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Registration(User user)
         {
-            using(FitnessEntities db = new FitnessEntities())
+            using(VIAFitnessEntities1 db = new VIAFitnessEntities1())
             {
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -51,10 +51,14 @@ namespace VIA_Fitness.Controllers
         public ActionResult Login(Login login, string ReturnUrl)
         {
             string message = "";
-            using(FitnessEntities db = new FitnessEntities())
+            using(VIAFitnessEntities db = new VIAFitnessEntities())
             {
                 var v = db.Users.Where(a => a.username == login.username).FirstOrDefault();
-                if(v != null)
+
+                string user = login.username;
+                TempData["username"] = user;
+
+                if (v != null)
                 {
                     if (string.Compare(login.password,v.password) == 0)
                     {
@@ -84,6 +88,8 @@ namespace VIA_Fitness.Controllers
                 {
                     message = "Login failed. Please try again";
                 }
+                
+                
             }
             ViewBag.Message = message;
             return View();
@@ -110,13 +116,16 @@ namespace VIA_Fitness.Controllers
         public ActionResult createWorkout(Workout workout)
         {
             try {
-                using (FitnessEntities db = new FitnessEntities())
+                using (VIAFitnessEntities db = new VIAFitnessEntities())
                 {
+                    string user = Convert.ToString(TempData["username"]);
+
                     Workout newWorkout = new Workout();
                     newWorkout.type = workout.type;
                     newWorkout.duration = workout.duration;
                     newWorkout.caloriesBurned = workout.caloriesBurned;
                     newWorkout.date = DateTime.Today;
+                    newWorkout.username = user;
 
                     db.Workouts.Add(newWorkout);
                     db.SaveChanges();

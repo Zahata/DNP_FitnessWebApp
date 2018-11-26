@@ -4,61 +4,49 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Measurements">
+      <Schema Namespace="VIAFitnessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Measurments">
           <Key>
-            <PropertyRef Name="measurementsID" />
+            <PropertyRef Name="measurmentID" />
           </Key>
-          <Property Name="measurementsID" Type="int" Nullable="false" />
-          <Property Name="height" Type="int" />
-          <Property Name="weight" Type="float" />
-          <Property Name="bodyfatPercentage" Type="float" />
-          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="measurmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="height" Type="float" Nullable="false" />
+          <Property Name="weight" Type="float" Nullable="false" />
+          <Property Name="bodyfatPercantage" Type="float" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="username" />
           </Key>
-          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="password" Type="nvarchar" MaxLength="50" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" />
-          <Property Name="firstName" Type="nchar" MaxLength="30" />
-          <Property Name="lastName" Type="nchar" MaxLength="30" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
           <Property Name="age" Type="int" />
-          <Property Name="gender" Type="char" MaxLength="10" />
-          <Property Name="country" Type="nvarchar" MaxLength="30" />
+          <Property Name="gender" Type="char" MaxLength="1" />
+          <Property Name="country" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Workout">
           <Key>
             <PropertyRef Name="workoutID" />
           </Key>
-          <Property Name="workoutID" Type="int" Nullable="false" />
-          <Property Name="type" Type="nchar" MaxLength="30" />
-          <Property Name="duration" Type="int" />
-          <Property Name="caloriesBurned" Type="float" />
-          <Property Name="date" Type="date" />
-          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="workoutID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="duration" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="caloriesBurned" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_Measurements_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Measurements" Type="Self.Measurements" Multiplicity="*" />
+        <Association Name="FK_Measurments_Measurments">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Measurments" Type="Self.Measurments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="username" />
             </Principal>
-            <Dependent Role="Measurements">
-              <PropertyRef Name="username" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User1" Type="Self.User" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="username" />
-            </Principal>
-            <Dependent Role="User1">
+            <Dependent Role="Measurments">
               <PropertyRef Name="username" />
             </Dependent>
           </ReferentialConstraint>
@@ -75,17 +63,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FitnessModelStoreContainer">
-          <EntitySet Name="Measurements" EntityType="Self.Measurements" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="VIAFitnessModelStoreContainer">
+          <EntitySet Name="Measurments" EntityType="Self.Measurments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Workout" EntityType="Self.Workout" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Measurements_User" Association="Self.FK_Measurements_User">
+          <AssociationSet Name="FK_Measurments_Measurments" Association="Self.FK_Measurments_Measurments">
             <End Role="User" EntitySet="User" />
-            <End Role="Measurements" EntitySet="Measurements" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_User" Association="Self.FK_User_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="User1" EntitySet="User" />
+            <End Role="Measurments" EntitySet="Measurments" />
           </AssociationSet>
           <AssociationSet Name="FK_Workout_User" Association="Self.FK_Workout_User">
             <End Role="User" EntitySet="User" />
@@ -96,53 +80,53 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FitnessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Measurement">
+      <Schema Namespace="VIAFitnessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Measurment">
           <Key>
-            <PropertyRef Name="measurementsID" />
+            <PropertyRef Name="measurmentID" />
           </Key>
-          <Property Name="measurementsID" Type="Int32" Nullable="false" />
-          <Property Name="height" Type="Int32" />
-          <Property Name="weight" Type="Double" />
-          <Property Name="bodyfatPercentage" Type="Double" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Measurements_User" FromRole="Measurements" ToRole="User" />
+          <Property Name="measurmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="height" Type="Double" Nullable="false" />
+          <Property Name="weight" Type="Double" Nullable="false" />
+          <Property Name="bodyfatPercantage" Type="Double" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Measurments_Measurments" FromRole="Measurments" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="username" />
           </Key>
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="firstName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="lastName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="age" Type="Int32" />
-          <Property Name="gender" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Measurements" Relationship="Self.FK_Measurements_User" FromRole="User" ToRole="Measurements" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Measurments" Relationship="Self.FK_Measurments_Measurments" FromRole="User" ToRole="Measurments" />
           <NavigationProperty Name="Workouts" Relationship="Self.FK_Workout_User" FromRole="User" ToRole="Workout" />
         </EntityType>
         <EntityType Name="Workout">
           <Key>
             <PropertyRef Name="workoutID" />
           </Key>
-          <Property Name="workoutID" Type="Int32" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="duration" Type="Int32" />
-          <Property Name="caloriesBurned" Type="Double" />
-          <Property Name="date" Type="DateTime" Precision="0" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="workoutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="duration" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="caloriesBurned" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Workout_User" FromRole="Workout" ToRole="User" />
         </EntityType>
-        <Association Name="FK_Measurements_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Measurements" Type="Self.Measurement" Multiplicity="*" />
+        <Association Name="FK_Measurments_Measurments">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Measurments" Type="Self.Measurment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="username" />
             </Principal>
-            <Dependent Role="Measurements">
+            <Dependent Role="Measurments">
               <PropertyRef Name="username" />
             </Dependent>
           </ReferentialConstraint>
@@ -159,13 +143,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FitnessEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Measurements" EntityType="Self.Measurement" />
+        <EntityContainer Name="VIAFitnessEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Measurments" EntityType="Self.Measurment" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Workouts" EntityType="Self.Workout" />
-          <AssociationSet Name="FK_Measurements_User" Association="Self.FK_Measurements_User">
+          <AssociationSet Name="FK_Measurments_Measurments" Association="Self.FK_Measurments_Measurments">
             <End Role="User" EntitySet="Users" />
-            <End Role="Measurements" EntitySet="Measurements" />
+            <End Role="Measurments" EntitySet="Measurments" />
           </AssociationSet>
           <AssociationSet Name="FK_Workout_User" Association="Self.FK_Workout_User">
             <End Role="User" EntitySet="Users" />
@@ -177,20 +161,20 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FitnessModelStoreContainer" CdmEntityContainer="FitnessEntities">
-          <EntitySetMapping Name="Measurements">
-            <EntityTypeMapping TypeName="FitnessModel.Measurement">
-              <MappingFragment StoreEntitySet="Measurements">
-                <ScalarProperty Name="measurementsID" ColumnName="measurementsID" />
+        <EntityContainerMapping StorageEntityContainer="VIAFitnessModelStoreContainer" CdmEntityContainer="VIAFitnessEntities">
+          <EntitySetMapping Name="Measurments">
+            <EntityTypeMapping TypeName="VIAFitnessModel.Measurment">
+              <MappingFragment StoreEntitySet="Measurments">
+                <ScalarProperty Name="measurmentID" ColumnName="measurmentID" />
                 <ScalarProperty Name="height" ColumnName="height" />
                 <ScalarProperty Name="weight" ColumnName="weight" />
-                <ScalarProperty Name="bodyfatPercentage" ColumnName="bodyfatPercentage" />
+                <ScalarProperty Name="bodyfatPercantage" ColumnName="bodyfatPercantage" />
                 <ScalarProperty Name="username" ColumnName="username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="FitnessModel.User">
+            <EntityTypeMapping TypeName="VIAFitnessModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
@@ -204,7 +188,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Workouts">
-            <EntityTypeMapping TypeName="FitnessModel.Workout">
+            <EntityTypeMapping TypeName="VIAFitnessModel.Workout">
               <MappingFragment StoreEntitySet="Workout">
                 <ScalarProperty Name="workoutID" ColumnName="workoutID" />
                 <ScalarProperty Name="type" ColumnName="type" />

@@ -13,10 +13,10 @@ namespace VIA_Fitness.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FitnessEntities : DbContext
+    public partial class VIAFitnessEntities1 : DbContext
     {
-        public FitnessEntities()
-            : base("name=FitnessEntities")
+        public VIAFitnessEntities1()
+            : base("name=VIAFitnessEntities1")
         {
         }
     
@@ -25,7 +25,7 @@ namespace VIA_Fitness.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Measurement> Measurements { get; set; }
+        public virtual DbSet<Measurment> Measurments { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Workout> Workouts { get; set; }
     }
