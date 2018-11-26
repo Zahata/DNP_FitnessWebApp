@@ -9,7 +9,37 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-  
+
+    @if (ViewBag.ShowTopBar ?? false)
+    {
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("VIA Fitness", "Index", "User", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Home", "Index", "User", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Measurements", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Workout", "getWorkout", "User", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Summary", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                        }
+                    }
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav"></ul>
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="container body-content">
         @RenderBody()
     </div>

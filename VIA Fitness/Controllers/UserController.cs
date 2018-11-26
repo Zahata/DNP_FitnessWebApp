@@ -93,9 +93,40 @@ namespace VIA_Fitness.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            ViewBag.ShowTopBar = true;
+            return View();
+        }
+        // GET: Workout page
+        [HttpGet]
+        public ActionResult getWorkout()
+        {
+            ViewBag.ShowTopBar = true;
             return View();
         }
 
+        // POST : Create workout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult createWorkout(Workout workout)
+        {
+            try {
+                using (FitnessEntities db = new FitnessEntities())
+                {
+                    Workout newWorkout = new Workout();
+                    newWorkout.type = workout.type;
+                    newWorkout.duration = workout.duration;
+                    newWorkout.caloriesBurned = workout.caloriesBurned;
+                    newWorkout.date = DateTime.Today;
+
+                    db.Workouts.Add(newWorkout);
+                    db.SaveChanges();
+
+                    int latestWorkoutID = newWorkout.workoutID;
+                }
+            }
+            catch(Exception ex) { throw ex; }
+            return RedirectToAction("getWorkout");
+            }
         //Logout
         [Authorize]
         [HttpPost]

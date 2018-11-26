@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Models\Shared\Login.cs" />
     <Compile Include="Models\Shared\User.cs" />
+    <Compile Include="Models\Shared\Workout.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>FitnessModel.tt</DependentUpon>
     </Compile>
@@ -177,6 +178,7 @@
     <Content Include="Views\User\Registration.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\getWorkout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

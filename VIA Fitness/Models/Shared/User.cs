@@ -48,11 +48,11 @@ namespace VIA_Fitness.Models
         public Nullable<int> age { get; set; }
 
         [Display(Name = "Gender")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter gender")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please choose your gender")]
         public string gender { get; set; }
 
         [Display(Name = "Country")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter country")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please select a country")]
         public string country { get; set; }
       
     }
